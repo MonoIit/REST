@@ -1,6 +1,7 @@
 package ru.netology.authorize.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,8 +15,16 @@ public class AuthorizationController {
     @Autowired
     AuthorizationService service;
 
+    @Value("${server.port}")
+    private String port;
+
     @GetMapping("/authorize")
     public List<Authorities> getAuthorities(@RequestParam("user") String user, @RequestParam("password") String password) {
         return service.getAuthorities(user, password);
+    }
+
+    @GetMapping("/")
+    public String getPort() {
+        return port;
     }
 }
